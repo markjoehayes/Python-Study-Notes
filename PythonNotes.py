@@ -108,6 +108,152 @@ TEXT SEQUENCE TYPE - str
             s.count(x) total number of occurrences of x in s
         
         
+________________________________________________________________________________________
 
+BUILT IN FUNCTIONS
+
+   Included with the interpreter - can always use with out importing any modules
+
+	abs()           delattr()   hash()      memoryview()    set()
+    all()*           dict()      help()      min()       setattr()
+    any()           dir()       hex()       next()      slice()
+    ascii()         divmod()    id()        object()    sorted()
+    bin()           enumerate() input()     oct()       staticmethod()
+    bool()          eval()      int()       open()      str()
+    breakpoint()    exec()      isinstance()ord()       sum()
+    bytearray()     filter()    issubclass()pow()       super()
+    bytes()         float()     iter()      print()     tuple()
+    callable()      format()    len()       property()  type()
+    chr()           frozenset() list()      range()     vars()
+    classmethod()   getattr()   locals()    repr()      zip()
+    compile()       globals()   map()       reversed()  __import__()
+    complex()       hasattr()   max()       round()
+
+    def all(iterablea):         #if all elemenets are true
+        for element in iterable:
+            if not element:
+                return False
+        return True
+    
+    def any(iterable):          #if any element is true
+        for element in iterable
+            if element
+                return True
+        return False
+
+_______________________________________________________________________________________________
+
+PYTHON KEYWORDS
+
+False               class               from                or
+None                continue            global              pass
+True                def                 if                  raise
+and                 del                 import              return
+as                  elif                in                  try
+assert              else                is                  while
+async               except              lambda              with
+await               finally             nonlocal            yield
+break               for                 not
+
+__________________________________________________________________________________________________
+
+REVERSING A STRING  (EASY IN PYTHOM!!)
+
+    greeting = "Hello, World!"
+    print(greeting[::-1])
+
+
+__________________________________________________________________________________________________
+LISTS
+
+   -Can contain multiple types, but usually do not
+   - can be insexed and sliced
+         (as all built0in sequence types)
+   -mutable
+   -simple assignments do not copy*********
+      any changes made to a list through one variable will be reflected in all
+      variables that refer to it
+
+      EG: a = [1,2,3,4]
+          b = a
+          a[2] = 10
+          print(b)
+          [1,2,10,4]
+    -lists can be nested 
+
+    -List Methods:
+        list.append(x)
+        list.extend(iterable) 
+            extend the list by appending all items from the iterable
+        list.insert(i,x)
+        list.remove(x)
+        list.pop(i) - if no index is given , will remove the end
+        list.clear() - similar to del a[:]
+        list.index(x[, start[, end]])   
+	    list.count(x) - returns the number of time x appears
+        list.sort(*, key-None, reverse=False)
+        list.reverse() - reverses elements in place
+        list.copy - returns a shallow copy of a list
         
-	
+
+        **some methods like insert, remove or sort only modify the list
+          but return None
+          only same type data can be sorted
+
+   What is Shallow Copy:
+    import copy
+
+    a = [1, 2, [3, 4]]
+    b = a.copy()  # Shallow copy (same as `b = a[:]` or `b = list(a)`)
+    c = copy.copy(a)  # Another way to shallow copy
+
+    a[2][0] = 99  # Modify a nested element
+
+    print(a)  # [1, 2, [99, 4]]
+    print(b)  # [1, 2, [99, 4]] → Nested list is shared!
+    print(c)  # [1, 2, [99, 4]] → Also affected!
+
+    Using lists as stacks (lifo)
+        easily through append and pop without indexes
+    Usinf lists as quues (fifo)
+        not efficient
+        use collections.deque
+        Eg
+        from collections import deque
+
+        queue = deque(['Eric', 'John', 'Michael'])
+        queue.append('Terry')
+        queue.append('Grahm')
+        queue.popleft()
+        'Eric'
+        queue popleft()
+        'John'
+        queue
+        deque(['michael', 'Terry', 'Grahm'])
+
+
+    List Comprehensions
+        -concise way to create lists
+        -commonly: make new lists where each element is the result of some 
+         operation applied to each member of another sequence or iterable
+         or, create a subsequence of those elements that satisfy a certain 
+         condition
+
+    ...
+
+TUPLES AND SEQUENCES
+    Sequence Types: lists, tuples and range
+
+    Tuples:
+        -number of values seperated by a comma
+        -immutable
+        -not possible to assign individual items of a tuple, but can contain
+         mutable objects, such as lists
+
+SETS
+    -unordered collection with no duplicate elements
+    -created with curly braces or set() function
+    -basic uses:
+           - membership testing and eliminating duplicate entries
+            -support mathematical operations like union, intersection, difference
+             and symmetric difference
