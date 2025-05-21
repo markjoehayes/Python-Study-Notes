@@ -772,6 +772,22 @@ CLASSES
     OOP - class support
     python can easily be used as a functional language
     real world objects have attributes and capabilities (fields/methods)
+        methods - functions that act on objects(action of the class object)
+        fields - (data part) ordinary variables bound to namespaces of the  
+                classes and objects
+                1. class variables
+                2. object variables
+        ***see robot.py****
+              *population belongs to Robot - class variable
+              *name belongs to object(assignes with self) object variable
+              *WARNING object variable with the same name as a class 
+                    variable will hide the class variable
+              *how_many is a method that belongs to the class - 
+                    define it as a classmethod or staticmethod
+              *how_many was marked as a class method using a decorator
+              *decorator = shortcut to calling a wrapper function
+                    how_many = classmethod(how_many)
+
 
     Class Creation:
         class - blueprint to build an object
@@ -902,6 +918,14 @@ ________________________________________________________________________________
             print(ball_two)
         ____________________________________________________________________________
 
+OBJECT ORIENTED PROGRAMMING
+
+    four major principles:
+        Encapsulation - bundling of data with the methods that operate
+                        on them
+        Data Abstraction
+        Polymorphism
+        Inheritance
 
 ________________________________________________________________________________________________________
 Python Algorithims:
