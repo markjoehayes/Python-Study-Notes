@@ -1,7 +1,7 @@
 https://www.python.org 
 
 Describtions of standard objects and models:
-	Pyhthon Standatd Library
+	Pyhthon Standard Library
 	The Python Language Reference
 	Exetending and Embedding the Python Interpreter Python/C API reference
 		to write extensions in C/C++
@@ -45,7 +45,7 @@ A Python Interpreter
 	-bytecode interpreter - input is instruction sets called bytecode
 			lexer, pasrser and compiler generate code objects for the interpreter
 			to operate on. Each code objects contain a set of instructions - byte
-			code.  (Analagolous to C uses assembly as intemediary)
+			code.  (Analagolous to C using assembly as intemediary)
 
     -ARGUMENT PASSING
         script name and arguments are turned into a list of strings and assigned to
@@ -166,10 +166,25 @@ REVERSING A STRING  (EASY IN PYTHOM!!)
 __________________________________________________________________________________________________
 LISTS
 
+   - Create:
+            a_list = [] #empty list
+            oneToTen = list(range(10)) #[0,1,2,3,4,5,6,7,8,9]
    -Can contain multiple types, but usually do not
    - can be insexed and sliced
          (as all built0in sequence types)
    -mutable
+   -changed IN PLACE - return value after a method is None.  Cant asign to 
+        variablwe without copying
+        eg:
+          sort() method - sorts in place, returns None
+          sorted() function will return a new list
+   - copying a list:
+        Shallow Copy
+            new_list = my_list.copy()
+            new_list = my_list[:]
+            new_list = list(my_list)
+        Deep Copy
+            .deepcopy()
    -simple assignments do not copy*********
       any changes made to a list through one variable will be reflected in all
       variables that refer to it
@@ -180,8 +195,9 @@ LISTS
           print(b)
           [1,2,10,4]
     -lists can be nested 
-
+    
     -List Methods:
+        shown with dir(list())
         list.append(x)
         list.extend(iterable) 
             extend the list by appending all items from the iterable
@@ -238,8 +254,13 @@ LISTS
          operation applied to each member of another sequence or iterable
          or, create a subsequence of those elements that satisfy a certain 
          condition
+         EG:
+            numbers = [1,2,3,4,5]
+            squares = [x**2 for x in numbers] #[1,4,9,16,25]
+            even_squares = [x**2 for x in numbers if x % 2 == 0] #[4,16]
 
     ...
+______________________________________________________________________________________________
 
 TUPLES AND SEQUENCES
     Sequence Types: lists, tuples and range
@@ -249,11 +270,655 @@ TUPLES AND SEQUENCES
         -immutable
         -not possible to assign individual items of a tuple, but can contain
          mutable objects, such as lists
+        -because immutable, only have 2 methods:
+            dir(tuple())
+                count()
+                index()
+        -concatenating tuples creates a new tuple:
+            a_tuple = (1,2,3,3)
+            id(a_tuple)
+            140617302751760
+            a_tuple += (6,7)
+            id (a_tuple)
+            140617282270944
 
+        **object id is equivalent to an objects address in memory***
+
+        Extracting Multiple Values in a Tuple while Looping:
+            >>>list_of_tuples = [(1,' bananna'), (2, 'apple'), (3, 'pear')]
+            >>>for number, fruit in list_of_tuples:
+            ...     print(f'{number} - {fruit}')
+            ...
+            1 - bannana
+            2 - apple
+            3 - pear
+____________________________________________________________________________________________________
+
+DICTIONARIES
+
+    -key, value pairs - similar to hash tables in other languages
+    -a mapping that maps keys (hashable objects) with any object
+    - ordered since 3.7
+    -keyword dict
+    -acces by key - if key not in dict KeyError
+    - key in dict or key not in dict -----Boolean
+
+    -Methodas:
+        d.get()
+            defaults to None if not in dictionary and no default given
+        d.clear()
+        d.copy() shallow copy (need deepcopy if dict contains objects or
+            dictionaries)
+        d.items() return a new view of dict items
+        d.keys() dynamic view of keys
+        d.values() dynamic view of values
+        d.pop() key and default, if no default and key not found KeyError
+        d.popitem() remove key, value pair LIFO if dicyt empty -> KeyError
+        d.update() update with key, value (will overwrite value with existing
+            key) returns None
+
+    -Modifying a Dict:
+        add key value pair:
+            sample_dict['address'] = '123 Dunn St'
+        same to change value (also use d.update())
+        delete pairs:
+            del sample_dict['addres']
+            you can also use d.pop() - remove key and return value
+
+    -Looping Over a Dictionary:
+        -will loop over keys
+        -can loop over both by using items()
+          users = {'mdriscoll': 'password', 'guido':'python'}
+          for user, password in users.items():
+              print(f"{user}'s password is {password}")
+_____________________________________________________________________________________________
+
+LOOPING WITH enumerate
+    takes an iterable and returns a tuple in the form (count, item)
+    >>>my_str = 'abcdefg'
+    >>>for pos, letter in enumerate(my_str):
+    ...     print(f'{pos} - {letter}')
+    ...
+    0 - a
+    1 - b
+    ...
+
+
+
+_______________________________________________________________________________________________
 SETS
-    -unordered collection with no duplicate elements
+    -unordered collection of distinct hashable objects 
     -created with curly braces or set() function
     -basic uses:
-           - membership testing and eliminating duplicate entries
-            -support mathematical operations like union, intersection, difference
+           -membership testing and eliminating duplicate entries
+           -support mathematical operations like union, intersection, difference
              and symmetric difference
+    -Two types:
+        set -mutable
+        frozenset - immutable and hashable
+    -Creating a set
+        my_set = {"a", "b", "c",}
+         - duplicates will be moved automatically
+        set()
+    -accessing values
+        chdck with in operator
+        no slicing, but can iterate
+    -add items to a set:
+        add() or update()
+            my_set = {"a", "b", "c", "c"}
+            my_set.add("d")
+            my_set
+            {"d", "c", "a", "b"}
+        use update for multiple items
+            my_set.update(['d', 'e', 'f'])
+            my_set
+            {'a', 'c', 'd', 'e', 'b', 'f'}
+            - update will take any iterable (list, tuple or set)
+
+    -Remove  .remove(), .discard() or .pop()
+        if you use dicard() on an item that doesnt exist, it wont error
+        pop will remove and return
+            if you use pop without a value, you wont know what is 
+                removed since sets are unordered
+                also: pop() on an empty set raises an KeyError opposed
+                to IndexError in list
+
+     -clear or delete 
+        clera() returns an empty set
+        del completely removes set
+
+     -Set Operations
+        union() - combines two sets and returns new set
+        intersection() - returns a new set of common values
+        difference() - returns a new set with elements that are not in 
+            the new set
+
+     EG:
+        first_set = {'one', 'two', 'three'}
+        second_set = {'orange', 'banana','peach'}
+        first_set.union(second_set)
+        {'two', 'banana', 'three', 'peach', 'orange', 'one'}
+        first_set
+        {'two', 'three', 'one'}
+       ***if you want to save unionized set, use a new variale***
+
+     EG:
+        second_set.add('one')
+        intersection = first_set.intersection(second_set)
+        intersection
+        {'one'} 
+     
+     EG:
+        second_set = {'three', 'four','one'}
+        first_set.difference(second_set)
+        {'two'}
+        second_set.difference(first_set)
+        {'four'}
+
+    Other methods, but very uncommon
+_____________________________________________________________________________________________________
+BOOL FUNCTIONS
+
+  False maps to zero and True maps to 1
+  ****bool() function****
+  any value will map to true!
+    >>>bool('0')
+    >>>True
+    >>>bool('')
+    >>>False
+    >>>bool ([])
+    >>>False
+    
+   -None pythons null value, its data type is NoneType
+        -cn asign to a variable, but all instances will point to same object
+        >>>x = None
+        >>>y = None
+        >>>id(x)
+        >>>4478513256
+        >>>id(y)
+        >>>4478513256
+
+Special Operators
+    special operators to be used in conditional expressions
+      IDENTITY
+        is = True when operands are identical
+        is not True when operands are not identical
+      MEMBERSHIP
+        in True when value is in a collection
+        not in True when value is not in a collection
+     EG:
+        >>>x = [1,2,3]
+        >>>y = [1,2,3]
+        >>>x == y
+        >>>True
+        >>>x is y
+        >>>False
+        >>>id(x)
+        >>>140328193994832
+        >>>id(y)
+        >>>14038193887760
+     EG:  re: strings are immutable
+        >>>x = 'hi'
+        >>>y = 'hi'
+        >>>x == y
+        >>>True
+        >>>x is y
+        >>>True
+
+________________________________________________________________________________________________
+LOOPS AND ELSE STATEMENT
+
+    EG
+    >>>my_list = [1,2,3]
+    >>>for number in my_list:
+    ...     if number == 4:
+    ...         print('Found number 4!')
+    ...         break
+    ...      print(number)
+    ...else:
+    ...      print('Number 4 not found')
+    1
+    2
+    3
+    Number 4 not found
+___________________________________________________________________________________________________
+
+PYTHON COMPREHENSIONS
+
+    LIST COMPREHENSIONS
+        EG - make a new list, doubling values
+        >>>sequence = [1,2,3]
+        >>>new_list = [x * 2 for x in sequence]
+        >>>new_list
+        [2,4,6]
+
+        EG Odd numbers
+        >>>odd_numbers = [x in range(10) if X % 2]
+        >>>odd_numbers
+        [1,3,5,7,9]
+              %%%%%%%%%%%evaluating truthiness of x % 2 (not X%2 == 0)
+                        if x % 2 = 0 0 is false
+                        if x % 2 = 1 1 is true
+
+        EG take a dictionary and make a list of tuples
+        >>>my_dict = {1: 'dog', 2: 'cat', 3: 'python'}
+        >>>[(num, animal) for num in my_dict for animal in my_dict.values() if my_dict[num] == animal]
+        [(1, 'dog'), (2, 'cat') (3, 'python')]
+
+                repeat w/o comprehension
+                >>>my_dict = {1: 'dog', 2: 'cat', 3: 'python'}
+                >>>my_list = []
+                >>>for num in my dict:
+                ...  for animal in my_dict.values():
+                ...     if my_dict[num] == aniaml:
+                ...         my_list.append((num, animak))
+                ...
+                >>>my_list
+                [(1, 'dog'), (2, 'cat'), (3, 'python')]
+
+    DICTIONARY COMPREHENSIONS
+        
+        >>>{key: value for key, value in enumerate('abcde')}
+        {0: 'a', 1: 'b', 2: 'c', 3: 'd', 4: 'e'}
+
+    SET COMPREHENSIONS
+
+        exact same syntax as list with the exception of curly brackets in place of
+        parenthesis
+
+
+__________________________________________________________________________________________________
+
+Lambda Operator, filter, reduce and map
+
+    lambda function  - small anonmymouse "throw away" functions
+        typically used with filter() map() or reduce()
+        syntax: lambda argument_list: expression
+        eg: 
+            sum = lambda x,y : x + y
+            sum(3,4)
+            output: 7
+
+     map() is a function that takes two arguments  r = map(func, seq)
+      map applies the function to all the elements in the sequence
+
+....
+_______________________________________________________________________________________________
+EXCEPTION HANDLING
+
+
+    Most Commom Exceptions:
+        AttributeError - attribute ref or assignment fails
+        ImportError - import statement fails
+        ModuleNotFoundError - subclass of ImportError when module cant be located
+        IndexError - sewquence subscript is out of range
+        KeyError - mapping (dict) key is not found in the set of existing keys
+        KeyboardInterrupt - user hist interrupt key (ctrl-c)
+        NameError - local or global name is not found
+        OSError - function returns a system-related error
+        RuntimeError - error does fall into any category
+        SyntaxError 
+        TypeError - function applied to an object of inapropriate type
+        ValueError 
+        ZeroDivisionError
+    
+    Handling Exceptions   
+        try:
+            with open('example.txt') as file_handler:
+                for line in file_handler:
+                    print(line)
+            import something
+        except OSError:
+            print('An error occurred')
+        except ImportError:
+            print('Unknown Import!')    
+
+    Raising Exception
+
+        forcing an exception to occur
+
+....
+
+___________________________________________________________________________________
+
+WORKING WITH FILES
+
+    open() function argumants and defaults
+
+        open(file, mode='r', bufferings==1, encoding=None, errors=None, newline=None,
+                closefs=True, openr=None)
+
+        only required filname or path (readonly)
+        'r' = readonly (default)
+        'w' = open for wriring - overwrite if exists
+        'a' = open for writing - append file
+        'b' = binary mode
+        't' = text mode (default)
+        '+' = reading and writing
+
+    Multiple ways to open a file:
+
+        file_handler = open('example.txt')
+        #do somehting with the file
+        file_handler.close()
+
+      exception may occur - can use try/except finally 
+      best way is to use special with statement.  With will activate 
+      context manager (used when you want to set something up and 
+         tear somthing down)
+
+        with open('example.txt') as file_handler:
+            #do somthing with handler here
+            data = file_handler.read()
+
+    Reading Files
+
+        with open('example.txt') as file_handler:
+            for line in file_handler:
+                print(line)
+
+            ****reads file in chunks so you wont run out of memory
+
+        with open('example.txt') as file_handler:
+            lines = file_handler.readines()
+            for line in lines
+                print(line)
+             **** reads entire file into memory
+
+        with oprn('example.txt') as file_handler:
+            file_contents = file_handler.read()
+            *****reads entire file into memory and assigns to a variable    
+    
+        
+        read a file in smaller chunks - specify size, in bytes to read
+
+        while True:
+            with open('Example.txt', 'rb') as file_handler:
+                data = file_handler.read(1024)
+                if not data:
+                    break
+                print(data)
+           ****read 1025 bytes at a time, when read returns an empty string, 
+                while loop will break
+
+        Reading Binary files
+
+        with open('example.pdf', 'rb') as file_handler:
+            file_contents = file_handler.read()
+
+        ***** the second argument to open is rb - ro binary mode
+
+    Writing Files
+
+        same syntaxt with 'w' in place of 'r'
+        WARNING: when using 'w' and 'wb' modes you will overwrite existing 
+            files  os module os.path.exists() -> check for files existance
+
+            >>> with open('example.txt', 'w') as file_handler:
+            ...     file_handler.write('This is a test')
+            ...
+            14
+            >>> with open('example.txt') as file_handler:
+            ...     print(file_handler.read())
+            ...
+            This is a test
+            >>>
+
+    Seeking Within a File
+
+        file handler has another method: seek()
+        The seek() method accepts 2 arguments:
+            offset - a number of bytes from whence
+            whence - The reference point
+                whence can be set to one of three values:
+                    0 - default, beggining of file
+                    1 - The cuyrrent file position
+                    2 - The end of the file
+
+        With example file, started at 4th byte:
+        >>> with open('example.txt') as file_handler:
+        ...     file_handler.seek(4)
+        ...     chunk = file_handler.read()
+        ...     print(chunk)
+        ...
+        4
+         is a test
+        This is line 2
+        
+     Catching File Exceptions
+
+        usually permissions to create or edit a file:
+            OSError   
+        try:
+            with open('example.tct') as file_handler:
+                for line in file_handler:
+                    print(line)
+        except OSError:
+            print('An error has occured')
+
+____________________________________________________________________________________________________
+
+IMPORTING
+
+    common modules to import:
+        argparse - create commandline interfaces
+        email - create, send, and process email
+        logging - create run time logs of program execution
+        pathlib - work with file name and paths
+        subprocess - open and interact with other processes
+        sys - work with system specific functiond and information
+        urllib - work with urls
+       -full list
+           https://docs.python.org/3/library/index.html
+
+    import <library name>
+    from <libray name> import <piece>
+            eg:
+                from math import sin, cos, tan
+     example usinf variables (as)
+        import math as m
+        >>>m.sqrt(4)
+        2.0
+
+    can import everything with from ... import * 
+         BEWARE (namespace contamoiniation)
+        shadowing - use a variable that overwrites a functiuon you imported
+
+____________________________________________________________________________________________________
+
+FUNCTIONS
+
+    -create functions with the def keyword
+    -if no return value default = None
+    - Type hinting - specify argunent types, even though it wont be engforced
+    - mypy tool can be used to verify that type hinting is followed
+    EG
+        def welcome(name: str) -> None:
+            print(f'Welcome {name}')
+    -passing keyward arguments
+        -can define defaults in arguments
+
+    *args and **kwargs
+        -*args - an arbitrary number of arguments
+        -**kwargs - an arbitrary number of keyward argunments
+
+        EG:
+            >>> def output(*args, **kwargs):
+            ...     print(f'{args}')
+            ...     print(f'{kwargs}')
+            ... 
+            >>> my_tuple = (1,2,3)
+            >>> my_dict = {'one': 1, 'two':2}
+            >>> 
+            >>> output(*my_tuple)
+            (1, 2, 3)
+            {}
+            >>> output(my_dict)
+            ({'one': 1, 'two': 2},)
+            {}
+            >>> 
+     -positional-only parameters
+        special syntax to tell Python that some parameters have to be
+        positional and some have to be keywaord
+
+        >>>def positional(name, age, /, a, b, *, key):
+        ...     print(name, age, a, b, key)
+        >>>positional('Mike', 17, 2, b=3, key='test')
+        Mike 17 2 3 test
+_______________________________________________________________________________________________
+
+CLASSES
+
+    OOP - class support
+    python can easily be used as a functional language
+    real world objects have attributes and capabilities (fields/methods)
+
+    Class Creation:
+        class - blueprint to build an object
+        class Ball:
+            
+            def __init__(self, color, size, weight):
+                """Initializer"""
+                self.color = color
+                self.size = size
+                self.weight = weight
+        EG
+        >>> class Ball:
+        ...     def __init__(self, color, size, weight):
+        ...             self.color = color
+        ...             self.size = size
+        ...             self.weight = weight
+        ...
+        >>> beach_Ball = Ball('red', 15, 1)
+        >>> print(beach_Ball)
+        <__main__.Ball object at 0x72950b173e20>
+        >>> print(f'My ball is {beach_Ball.color} and weighs {beach_Ball.weight}lb')
+        My ball is red and weighs 1lb
+        >>>
+    
+     -can add type hinting to your class:
+            >>>class Ball:
+            ...     def __init__(self, color: str, size: float, weight: float) -> None:
+            self.color = color
+            self.size = size
+            self.weight = weight
+
+________________________________________________________________________________________________
+# ball.py
+
+class Ball:
+    def __init__(self, color:str, size:float, weight: float, ball_type:str) ->None:
+        self.color = color
+        self.size = size
+        self.weight = weight
+        self.ball = ball_type
+
+    def bounce(self):
+        if self.ball_type.lower() == 'bowling':
+            print("Bowling balls can't bounce!")
+        else:
+            print(f"The {self.ball_type} ball is bouncing!")
+
+if __name__ == "__main__":
+    ball_one = Ball('black', 6, 12, 'bowling')
+    ball_two = Ball('red', 12, 1, 'beach')
+
+    ball_one.bounce()
+    ball_two.bounce()
+__________________________________________________________________________________________________________
+
+    Puplic and Private Methods / Attributes
+        
+        1. public - avaialble to all of Python
+        2. private - used only within the class theyre defined
+        3. protected - only be used in the class theyre defines or in a sublass
+
+        ***puplic and protected methids/attributes dont technically exists
+            convention to use underscore or double underscore to signal that
+            the method or attribute should be treated as a private.
+        double underscore = dunder methods
+
+        python built in magic methods:
+        https://doc.python.org/3/refrence/datamodel.html
+
+    Subclass Creation
+
+        -inherts the attributes and methods of the class it is based on
+        -can override methods and attributes of the subclass by using the same names
+
+    EG....use ball.py to make a subclass
+    ________________________________________________________________________
+    #bowling ball.py
+    import ball
+
+    class BowlingBall(ball.Ball):
+        def roll(self):
+            print(f'You are rolling the {self.ball_type} ball')
+    
+    if __name__ == "__main__":
+        ball = BowlingBall()
+        ball.roll()
+        ball.bounce()
+    _______________________________________________________________________
+        
+
+    Polymorphism
+
+        -ploymorphic classes have a shared, commonm interface(methods and attributes)
+         possibly from parents via inheritance
+        -abc module - Abstract Base Classes (make classes more rigid)
+        -Duck Typing - if a python class had the same interface as its
+                parent or similar class, then it doesnt matter if the implementation 
+                underneath is different
+        -__repr__() magic method - creates a nice string representation of the
+                object
+        eg - ball.py  - ball_printable.py
+        _______________________________________________________________________
+
+        class Ball:
+            def __init__(self, color:str, size:float, weight: float, ball_type:str) ->None:
+                self.color = color
+                self.size = size
+                self.weight = weight
+                self.ball_type = ball_type
+
+            def bounce(self):
+                if self.ball_type.lower() == 'bowling':
+                    print("Bowling balls can't bounce!")
+                else:
+                    print(f"The {self.ball_type} ball is bouncing!")
+
+            def __repr__(self):
+            return f"<Ball: {self.color} {self.ball_type} ball>"
+
+        if __name__ == "__main__":
+            ball_one = Ball('black', 6, 12, 'bowling')
+            ball_two = Ball('red', 12, 1, 'beach')
+
+            ball_one.bounce()
+            ball_two.bounce()
+
+            print(ball_one)
+            print(ball_two)
+        ____________________________________________________________________________
+
+
+________________________________________________________________________________________________________
+Python Algorithims:
+
+    Bubble Sort
+        numList = []
+        numList.append(random.randint(1,10))
+        i = len(numList) - 1
+        while i > 1:
+            j=0
+            while j < i:
+                if numList[j] > numList[j +1]:
+                    temp = numList[j]
+                    numList[j] = numList[j + 1]
+                    numList[j + 1] = temp
+                else:
+                    print()
+                j += 1
+            i -= 1
+
