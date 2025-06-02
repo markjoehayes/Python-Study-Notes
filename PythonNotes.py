@@ -231,7 +231,7 @@ LISTS
 
     Using lists as stacks (lifo)
         easily through append and pop without indexes
-    Usinf lists as quues (fifo)
+    Using lists as quues (fifo)
         not efficient
         use collections.deque
         Eg
@@ -611,7 +611,55 @@ WORKING WITH FILES
             #do somthing with handler here
             data = file_handler.read()
 
-    Reading Files
+    EXAMPLE  read(), readline() and readlines()_______________________________________________________
+    #!/usr/bin/env python3
+    import os
+
+    with open("mydata.txt", mode="w", encoding="utf-8") as myFile:
+        myFile.write("Some random text\nMore randomtext\nAnd some more")
+
+    #open for reading  - does not require mode, read is default
+    with open("mydata.txt", encoding="utf-8") as myFile:
+        print(myFile.readlines())
+
+
+    # Reading files
+    # read() - read  file
+    # readline() - read until first newline
+    # readlines() - return a list of strings 
+
+    __________________________________________________________________________________________________
+    EXAMPLE
+    #!/usr/bin/env python3
+    import os
+
+    with open("mydata2.txt", mode='w', encoding="utf-8") as myFile:
+        myFile.write("some random text\nMore random text\nAnd more text")
+
+    with open("mydata2.txt", encoding="utf-8") as myFile:
+        lineNum = 1
+
+        while True:
+            line = myFile.readline()
+            if not line:
+                break
+
+            print("Line", lineNum, " : ", line, end="")
+            lineNum += 1
+
+    print()
+
+    OUTPUT:
+    Line 1  :  some random text
+    Line 2  :  More random text
+    Line 3  :  And more text
+
+_______________________________________________________________________________________________________
+
+
+
+
+    Readig Files
 
         with open('example.txt') as file_handler:
             for line in file_handler:
@@ -695,6 +743,19 @@ WORKING WITH FILES
                     print(line)
         except OSError:
             print('An error has occured')
+
+
+    More Methods:
+        os.rename("mydata.txt", "mydata2.txt")
+        os.remove("mydata2.txt")
+        os.mkdir("mydir")
+        os.chdir("mydir")
+
+        print("Current Directory: ", os.getcwd())
+
+        os.chdir("..")
+        os.rmdir("mydir")
+
 
 ____________________________________________________________________________________________________
 
@@ -919,6 +980,20 @@ ________________________________________________________________________________
         ____________________________________________________________________________
 
 OBJECT ORIENTED PROGRAMMING
+    -combine data and functionality and wrap inside somthing called an
+     object
+     -class creates a new type where objects are instances of the class
+     -objects that store data using ordinary variables that belong to the object
+                -referred to fields
+                - 2 types of fields:
+                    1. instance variables - belong to instance/object of class
+                    2. class variables - belong to the class itself
+     -Objects can also have functionality by using functions that belong to a class - referred to as methods
+     -functions and methods = attributes
+     
+     -SELF
+       -first value added to the begining of the parameter list, Python provides its value
+
 
     four major principles:
         Encapsulation - bundling of data with the methods that operate
@@ -926,6 +1001,42 @@ OBJECT ORIENTED PROGRAMMING
         Data Abstraction
         Polymorphism
         Inheritance
+
+    Getter and Setter 
+        serve important purposes in encapsulation and data validation
+
+    INHERITANCE
+
+        -Technically every class uses inheritance
+        
+        -EG:
+            !/usr/bin/python3
+
+            class Contact:
+                all_contacts = []
+
+                def __init__(self, name, email):
+                    self.name = name
+                    self.email = email
+                    Contact.all_contacts.append(self)
+
+            class Supplier(Contact):
+                """ If some contacts are also suppliers, we can create a new
+                    Supplier class that acts like a Contact but has an additional 
+                    order method"""
+
+                def order(self, order):
+                    print("If this was a real system we would send {} order to {}".format(order, self.name))
+
+
+            c = Contact("Some Body", "somebody@example.net")
+            s = Supplier("Sup Plier", "supplier@example.net")
+            print(c.name, c.email, s.name, s.email)
+
+            s.order("I need pliers")
+
+
+
 
 ________________________________________________________________________________________________________
 Python Algorithims:
