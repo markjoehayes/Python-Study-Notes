@@ -358,7 +358,7 @@ SETS
         frozenset - immutable and hashable
     -Creating a set
         my_set = {"a", "b", "c",}
-         - duplicates will be moved automatically
+         - duplicates will be removed automatically
         set()
     -accessing values
         chdck with in operator
@@ -546,6 +546,9 @@ Lambda Operator, filter, reduce and map
 _______________________________________________________________________________________________
 EXCEPTION HANDLING
 
+ ****NOTE***
+        Consider Pyinputplus
+ ***********
 
     Most Commom Exceptions:
         AttributeError - attribute ref or assignment fails
@@ -583,6 +586,26 @@ ________________________________________________________________________________
 
 WORKING WITH FILES
 
+    Use the / operator to join paths:
+        - one of the fist two values must be a path object or it will error
+
+    The Current Working Directory
+        -get pwd as a string with Path.cwd()   *from pathlib import Path
+        -os.chdir()  *import os
+        -Path.home()
+        -os.makedirs
+
+    Getting Parts of a File Path
+        /home/mark/spam.txt
+            / = anchor
+            home = parent
+            spam.txt = filename
+
+    Finding File Sizes and Folder Contents
+        os.path.getsize(path) returns size of file in bytes
+        os.listdir(path) returns a list of filename strings for each file
+            in the path argument
+
     open() function argumants and defaults
 
         open(file, mode='r', bufferings==1, encoding=None, errors=None, newline=None,
@@ -595,6 +618,12 @@ WORKING WITH FILES
         'b' = binary mode
         't' = text mode (default)
         '+' = reading and writing
+
+        - files are normally opened in text mode - append 'b' to mode to open 
+          in binary  (cannot specify encoding when opening in binary mode)
+
+        - using with to open files will auto close them
+
 
     Multiple ways to open a file:
 
@@ -610,6 +639,57 @@ WORKING WITH FILES
         with open('example.txt') as file_handler:
             #do somthing with handler here
             data = file_handler.read()
+
+        with - generic framework for creating runtime contexts and telling
+               objects theyre entering and exiting a runtime context - if the 
+               object is a stream object, then it does useful things, like
+               auto closing - but that behavior is defined in the stream, not 
+               the with statement
+
+    Methods of File Objects:
+        f.read(size)  - reads a quantity of file contents (all if size ommitted)
+                        f.read() returns an empty string of the end of the file i                       is reached
+        f.readline() - reads a single line from file leaving '\n' at end
+                       blank lines are denoted by '\n'
+                       if end of file is reached - blank line
+        f.readlines() - returns a list of strings
+
+        f.write(string) - writes the contents of a string to a file and returns
+                          the number of characters written
+
+             ----other types need to be converted to a string or bytes before                     writing them
+             EG:
+                >>>value = ('the answer', 42)
+                >>>s = str(value)
+                >>>f.write(s)
+                18
+
+        f.tell() - returns an object giving the objects current position in the 
+                   file (represented as a number of bytes from beggining in 
+                   binary mode and an opaque number in text mode)
+
+
+
+    Saving structured data with json:
+        -when you need to save more complext data types like nexted lists, dicts,         etc - use data interchange format - JSON (Javascript Object Notation)
+
+        -takes python data hierarchies and converts them to string representation
+               - called SERIALIZING, 
+               - recontructing the data from strings = DESERIALIZING
+
+        EG: view x string representation 
+        >>>import json
+        >>>x = [1, 'simple', 'list']
+        >>>json.dumps(x)
+        '[1, "simple", "list"]'
+
+        -anpother variant of the dumps() functuon, dump() simply serializes the 
+         object to a text or binary file depending on mode
+
+         load() - to decode object again
+
+
+
 
     EXAMPLE  read(), readline() and readlines()_______________________________________________________
     #!/usr/bin/env python3
